@@ -26,24 +26,23 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [index, setIndex] = useState(0);
-  const parcel = PARCELS[index];
+  const parcel = PARCELS[index] ?? PARCELS[0]!;
   const [query, setQuery] = useState(parcel.address);
+
+  const select = (next: number) => {
+    setIndex(next);
+    setQuery(PARCELS[next]!.address);
+  };
 
   const analyze = () => {
     const q = query.trim().toLowerCase();
     const found = PARCELS.findIndex(
       (p) => p.address.toLowerCase().includes(q) || p.parcelId.includes(q),
     );
-    const next = found >= 0 ? found : index;
-    setIndex(next);
-    setQuery(PARCELS[next].address);
+    select(found >= 0 ? found : index);
   };
 
-  const sample = () => {
-    const next = (index + 1) % PARCELS.length;
-    setIndex(next);
-    setQuery(PARCELS[next].address);
-  };
+  const sample = () => select((index + 1) % PARCELS.length);
 
   return (
     <main className="mx-auto max-w-7xl px-5 py-10">
