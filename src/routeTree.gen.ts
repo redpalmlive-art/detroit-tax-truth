@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AccountabilityRouteImport } from './routes/accountability'
+import { Route as EstimateRouteImport } from './routes/estimate'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountabilityRoute = AccountabilityRouteImport.update({
+  id: '/accountability',
+  path: '/accountability',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EstimateRoute = EstimateRouteImport.update({
+  id: '/estimate',
+  path: '/estimate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accountability': typeof AccountabilityRoute
+  '/estimate': typeof EstimateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accountability': typeof AccountabilityRoute
+  '/estimate': typeof EstimateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accountability': typeof AccountabilityRoute
+  '/estimate': typeof EstimateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/accountability' | '/estimate'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/accountability' | '/estimate'
+  id: '__root__' | '/' | '/accountability' | '/estimate'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountabilityRoute: typeof AccountabilityRoute
+  EstimateRoute: typeof EstimateRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accountability': {
+      id: '/accountability'
+      path: '/accountability'
+      fullPath: '/accountability'
+      preLoaderRoute: typeof AccountabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/estimate': {
+      id: '/estimate'
+      path: '/estimate'
+      fullPath: '/estimate'
+      preLoaderRoute: typeof EstimateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountabilityRoute: AccountabilityRoute,
+  EstimateRoute: EstimateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
