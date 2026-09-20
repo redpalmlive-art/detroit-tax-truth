@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 import {
   LEDGER,
@@ -77,8 +77,8 @@ function Panel({
   eyebrow: string;
   title: string;
   subtitle?: string;
-  children?: React.ReactNode;
-  aside?: React.ReactNode;
+  children?: ReactNode;
+  aside?: ReactNode;
 }) {
   return (
     <section className="panel p-6">
@@ -475,4 +475,3 @@ function PreventRepeat() {
   );
 }
 
-export { PARCELS };
