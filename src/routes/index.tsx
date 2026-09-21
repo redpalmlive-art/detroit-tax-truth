@@ -67,15 +67,7 @@ function Index(){
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&family=IBM+Plex+Mono&family=Inter:wght@400;600;700&display=swap'); .serif{font-family:'Instrument Serif',serif} .mono{font-family:'IBM Plex Mono',monospace} body{font-family:Inter,sans-serif}`}</style>
 
       {/* SINGLE HEADER - NO Prototype system ready */}
-      <header className="border-b border-[#1E3A2A] bg-[#0A1710]">
-        <div className="max-w-[1280px] mx-auto px-6 h-[64px] flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#122219] border border-[#E7C369]/40 grid place-items-center font-bold text-[#E7C369]">R</div>
-            <div><div className="font-black text-[13px] tracking-widest">RESTORE DETROIT</div><div className="mono text-[8px] tracking-[0.22em] text-[#7AA08A] uppercase">Property Tax Remedy Engine</div></div>
-          </div>
-          <div className="hidden md:flex gap-6 mono text-[11px] uppercase"><span className="text-white">REMEDY ENGINE</span><span className="text-[#5A7A69]">TAX ESTIMATOR</span><span className="text-[#5A7A69]">ACCOUNTABILITY</span></div>
-        </div>
-      </header>
+      
 
       <main className="max-w-[1280px] mx-auto px-6 py-10">
         <h1 className="serif text-[52px] md:text-[64px] leading-[0.9]">Find every claimant.<br/>Recover every<br/>authorized dollar.</h1>
