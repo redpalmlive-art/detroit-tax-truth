@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+﻿import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/')({
@@ -52,3 +52,4 @@ function Index(){
     </div>
   )
 }
+
