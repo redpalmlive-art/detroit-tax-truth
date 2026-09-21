@@ -16,16 +16,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootComponent() {
   const { queryClient } = Route.useRouteContext()
   return (
-    <QueryClientProvider client={queryClient}>
-      <html lang="en">
-        <head>
-          <HeadContent />
-        </head>
-        <body>
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <QueryClientProvider client={queryClient}>
           <Outlet />
-          <Scripts />
-        </body>
-      </html>
-    </QueryClientProvider>
+        </QueryClientProvider>
+        <Scripts />
+      </body>
+    </html>
   )
 }
