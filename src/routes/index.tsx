@@ -2,7 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { PreBillEquityAgent } from '../components/PreBillEquityAgent'
 
-export const Route = createFileRoute('/' as any)({
+// @ts-ignore
+export const Route = createFileRoute('/')({
   component: Index,
 })
 
