@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 export function SafeguardAgent({ parcelData }: { parcelData: any }) {
   const [marketDrop, setMarketDrop] = useState(35);
   const assessed = parcelData?.assessedValue2010_2016 || 85000;
