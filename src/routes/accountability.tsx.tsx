@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { PreBillEquityAgent } from '../components/PreBillEquityAgent'
 
 // @ts-ignore
-export const Route = createFileRoute('/accountability')({
+export const Route = createFileRoute('/accountability/tsx')({
   component: AccountabilityPage,
 })
 

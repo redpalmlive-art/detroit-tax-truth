@@ -9,15 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccountabilityRouteImport } from './routes/accountability'
 import { Route as EstimateRouteImport } from './routes/estimate'
+import { Route as AccountabilityTsxRouteImport } from './routes/accountability.tsx'
+import { Route as IndexTsxRouteImport } from './routes/index.tsx'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AccountabilityRoute = AccountabilityRouteImport.update({
   id: '/accountability',
   path: '/accountability',
@@ -28,46 +24,58 @@ const EstimateRoute = EstimateRouteImport.update({
   path: '/estimate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountabilityTsxRoute = AccountabilityTsxRouteImport.update({
+  id: '/tsx',
+  path: '/tsx',
+  getParentRoute: () => AccountabilityRoute,
+} as any)
+const IndexTsxRoute = IndexTsxRouteImport.update({
+  id: '/index/tsx',
+  path: '/index/tsx',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/accountability': typeof AccountabilityRoute
+  '/accountability': typeof AccountabilityRouteWithChildren
   '/estimate': typeof EstimateRoute
+  '/accountability/tsx': typeof AccountabilityTsxRoute
+  '/index/tsx': typeof IndexTsxRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/accountability': typeof AccountabilityRoute
+  '/accountability': typeof AccountabilityRouteWithChildren
   '/estimate': typeof EstimateRoute
+  '/accountability/tsx': typeof AccountabilityTsxRoute
+  '/index/tsx': typeof IndexTsxRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/accountability': typeof AccountabilityRoute
+  '/accountability': typeof AccountabilityRouteWithChildren
   '/estimate': typeof EstimateRoute
+  '/accountability/tsx': typeof AccountabilityTsxRoute
+  '/index/tsx': typeof IndexTsxRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/accountability' | '/estimate'
+  fullPaths:
+    '/accountability' | '/estimate' | '/accountability/tsx' | '/index/tsx'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/accountability' | '/estimate'
-  id: '__root__' | '/' | '/accountability' | '/estimate'
+  to: '/accountability' | '/estimate' | '/accountability/tsx' | '/index/tsx'
+  id:
+    | '__root__'
+    | '/accountability'
+    | '/estimate'
+    | '/accountability/tsx'
+    | '/index/tsx'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AccountabilityRoute: typeof AccountabilityRoute
+  AccountabilityRoute: typeof AccountabilityRouteWithChildren
   EstimateRoute: typeof EstimateRoute
+  IndexTsxRoute: typeof IndexTsxRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/accountability': {
       id: '/accountability'
       path: '/accountability'
@@ -82,13 +90,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EstimateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accountability/tsx': {
+      id: '/accountability/tsx'
+      path: '/tsx'
+      fullPath: '/accountability/tsx'
+      preLoaderRoute: typeof AccountabilityTsxRouteImport
+      parentRoute: typeof AccountabilityRoute
+    }
+    '/index/tsx': {
+      id: '/index/tsx'
+      path: '/index/tsx'
+      fullPath: '/index/tsx'
+      preLoaderRoute: typeof IndexTsxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AccountabilityRouteChildren {
+  AccountabilityTsxRoute: typeof AccountabilityTsxRoute
+}
+
+const AccountabilityRouteChildren: AccountabilityRouteChildren = {
+  AccountabilityTsxRoute: AccountabilityTsxRoute,
+}
+
+const AccountabilityRouteWithChildren = AccountabilityRoute._addFileChildren(
+  AccountabilityRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AccountabilityRoute: AccountabilityRoute,
+  AccountabilityRoute: AccountabilityRouteWithChildren,
   EstimateRoute: EstimateRoute,
+  IndexTsxRoute: IndexTsxRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
