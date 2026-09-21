@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccountabilityRouteImport } from './routes/accountability'
+import { Route as Accountability_backupRouteImport } from './routes/accountability_backup'
 import { Route as EstimateRouteImport } from './routes/estimate'
+import { Route as Index_backupRouteImport } from './routes/index_backup'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +25,74 @@ const AccountabilityRoute = AccountabilityRouteImport.update({
   path: '/accountability',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Accountability_backupRoute = Accountability_backupRouteImport.update({
+  id: '/accountability_backup',
+  path: '/accountability_backup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EstimateRoute = EstimateRouteImport.update({
   id: '/estimate',
   path: '/estimate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Index_backupRoute = Index_backupRouteImport.update({
+  id: '/index_backup',
+  path: '/index_backup',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accountability': typeof AccountabilityRoute
+  '/accountability_backup': typeof Accountability_backupRoute
   '/estimate': typeof EstimateRoute
+  '/index_backup': typeof Index_backupRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accountability': typeof AccountabilityRoute
+  '/accountability_backup': typeof Accountability_backupRoute
   '/estimate': typeof EstimateRoute
+  '/index_backup': typeof Index_backupRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/accountability': typeof AccountabilityRoute
+  '/accountability_backup': typeof Accountability_backupRoute
   '/estimate': typeof EstimateRoute
+  '/index_backup': typeof Index_backupRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/accountability' | '/estimate'
+  fullPaths:
+    | '/'
+    | '/accountability'
+    | '/accountability_backup'
+    | '/estimate'
+    | '/index_backup'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/accountability' | '/estimate'
-  id: '__root__' | '/' | '/accountability' | '/estimate'
+  to:
+    | '/'
+    | '/accountability'
+    | '/accountability_backup'
+    | '/estimate'
+    | '/index_backup'
+  id:
+    | '__root__'
+    | '/'
+    | '/accountability'
+    | '/accountability_backup'
+    | '/estimate'
+    | '/index_backup'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccountabilityRoute: typeof AccountabilityRoute
+  Accountability_backupRoute: typeof Accountability_backupRoute
   EstimateRoute: typeof EstimateRoute
+  Index_backupRoute: typeof Index_backupRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +111,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccountabilityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accountability_backup': {
+      id: '/accountability_backup'
+      path: '/accountability_backup'
+      fullPath: '/accountability_backup'
+      preLoaderRoute: typeof Accountability_backupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/estimate': {
       id: '/estimate'
       path: '/estimate'
       fullPath: '/estimate'
       preLoaderRoute: typeof EstimateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/index_backup': {
+      id: '/index_backup'
+      path: '/index_backup'
+      fullPath: '/index_backup'
+      preLoaderRoute: typeof Index_backupRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +138,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountabilityRoute: AccountabilityRoute,
+  Accountability_backupRoute: Accountability_backupRoute,
   EstimateRoute: EstimateRoute,
+  Index_backupRoute: Index_backupRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

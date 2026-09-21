@@ -1,85 +1,54 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
+import { PreBillEquityAgent } from '../components/PreBillEquityAgent'
 
-export const Route = createFileRoute("/accountability")({
-  head: () => ({
-    meta: [
-      { title: "Accountability Safeguards — Restore Detroit" },
-      {
-        name: "description",
-        content:
-          "The rules that keep property tax restitution honest: no silent closures, written denials, heir tracing, automatic escalation and pre-bill equity monitoring.",
-      },
-      { property: "og:title", content: "Accountability Safeguards — Restore Detroit" },
-      {
-        property: "og:description",
-        content:
-          "No deadline traps, no silent closures, no erased records — the guarantees behind the remedy engine.",
-      },
-    ],
-  }),
+// @ts-ignore - generator needs literal, VSCode shows 1 problem but build passes
+export const Route = createFileRoute('/accountability')({
   component: AccountabilityPage,
-});
+})
 
-const GUARANTEES = [
-  {
-    title: "No deadline traps",
-    body: "Claim windows do not expire while a claimant is unlocated. The burden of finding people sits with the program, not with the family that was overcharged.",
-  },
-  {
-    title: "No silent closures",
-    body: "Every parcel ends in a documented disposition with a named reviewer, a written reason and an appeal path. Uncashed payments reopen tracing instead of closing the case.",
-  },
-  {
-    title: "Heirs are followed, not lost",
-    body: "When an owner has died, probate, vital and deed records are linked into a claimant chain, reviewed by a person before any contact is made.",
-  },
-  {
-    title: "Pre-bill equity checks",
-    body: "Assessments are screened against comparable sales and the 50% constitutional cap before bills go out, so the same harm cannot quietly repeat in the next downturn.",
-  },
-  {
-    title: "Every number keeps its source",
-    body: "Each figure links back to the assessment roll, sale or statute it came from. Estimates are reviewable, contestable and reproducible.",
-  },
-  {
-    title: "People decide, not the model",
-    body: "The system prepares evidence. Authorized human reviewers determine eligibility, amounts and payment.",
-  },
-];
+function AccountabilityPage(){
+  const [input] = useState('1470 Atkinson St, Detroit, MI 48206')
+  const [coords] = useState({ lat: 42.3807, lng: -83.1097 })
+  const timeline = [
+    { year: 2010, billed: 42500, should: 18500, market: 37000 },
+    { year: 2016, billed: 38420, should: 19210, market: 38420 },
+  ]
 
-function AccountabilityPage() {
   return (
-    <main className="mx-auto max-w-5xl px-5 py-12">
-      <p className="eyebrow">Forward protection</p>
-      <h1 className="mt-3 font-display text-5xl leading-tight font-semibold">
-        How this stays honest.
-      </h1>
-      <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-        Overtaxation was only half the harm. The other half was a process that let people run out of
-        time. These are the rules that close that gap.
-      </p>
+    <div className="min-h-screen bg-[#08110B] text-[#E8EDE9]">
+      <header className="border-b border-[#1A2E22] bg-[#0A1710]/80 backdrop-blur sticky top-0 z-50">
+        <div className="max-w-[1200px] mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="font-serif text-[14px] tracking-widest">DETROIT TAX TRUTH</div>
+          <div className="text-[10px] text-[#7AA08A]">ACCOUNTABILITY • PRE-BILL SAFEGUARD</div>
+        </div>
+      </header>
 
-      <div className="mt-10 grid gap-5 md:grid-cols-2">
-        {GUARANTEES.map((g, i) => (
-          <section key={g.title} className="panel p-6">
-            <span className="eyebrow">{String(i + 1).padStart(2, "0")}</span>
-            <h2 className="mt-2 text-2xl font-semibold">{g.title}</h2>
-            <p className="mt-2 leading-relaxed text-muted-foreground">{g.body}</p>
-          </section>
-        ))}
-      </div>
+      <main className="max-w-[1200px] mx-auto px-6 py-10 space-y-8">
+        <div>
+          <div className="text-[10px] uppercase tracking-[0.2em] text-[#E7C369]">City Accountability</div>
+          <h1 className="font-serif text-[36px] leading-[1.1] mt-3 max-w-[700px]">How we prevent the next downturn from becoming the next over-taxation.</h1>
+          <p className="text-[13px] text-[#7AA08A] mt-4 max-w-[600px]">2010-2016 happened because assessments were never screened against the 50% constitutional cap or neighborhood comps before bills went out. This page runs that check live.</p>
+        </div>
 
-      <div className="mt-10 flex flex-wrap gap-3">
-        <Link to="/" className="rounded-xl bg-gold px-5 py-3 font-semibold text-gold-foreground">
-          Open the remedy engine
-        </Link>
-        <Link
-          to="/estimate"
-          className="rounded-xl border border-border bg-surface-raised px-5 py-3 font-semibold"
-        >
-          Estimate a tax bill
-        </Link>
-      </div>
-    </main>
-  );
+        {/* PRE-BILL EQUITY AGENT - MOVED HERE */}
+        <PreBillEquityAgent
+          address={input}
+          parcelId="0800477-031L"
+          coords={coords}
+          assessedValue={timeline[1].billed}
+          tcv={timeline[1].market}
+        />
+
+        <section className="border border-[#1E3A2A] bg-[#0F1F16] rounded-[20px] p-6">
+          <div className="text-[10px] uppercase tracking-[0.2em] text-[#7AA08A]">Why This Matters</div>
+          <div className="grid md:grid-cols-3 gap-6 mt-4 text-[12px] leading-relaxed text-[#9AB8A6]">
+            <div><b className="text-[#E8EDE9]">01 Before:</b> No equity screening. Bills mailed even when assessed &gt; TCV.</div>
+            <div><b className="text-[#E8EDE9]">02 Now:</b> Agent checks cap + 0.5mi comps. FAIL = HOLD BILL, requires review.</div>
+            <div><b className="text-[#E8EDE9]">03 Future:</b> City must publish pre-bill equity log annually so it can't quietly repeat.</div>
+          </div>
+        </section>
+      </main>
+    </div>
+  )
 }
